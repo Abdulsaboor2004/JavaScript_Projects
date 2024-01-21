@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modal</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+      }
+      ::selection {
+        background-color: #814c355b;
+      }
+
+      .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        background: url("https://images.unsplash.com/photo-1682685797332-e678a04f8a64?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+          no-repeat center;
+        background-size: cover;
+      }
+
+      .box-styler {
+        text-align: center;
+        font-size: 1vmax;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        color: #753c29;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 6px;
+        width: 50%;
+        height: 25%;
+        box-shadow: rgba(117, 57, 0, 0.356) 0px 20px 25px -5px,
+          rgba(73, 42, 0, 0.123) 0px 10px 10px -5px;
+      }
+
+      .box-styler-2 {
+        text-align: center;
+        font-size: 1.3vmax;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        color: #753c29;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 6px;
+        width: 70%;
+        height: 36%;
+        box-shadow: rgba(117, 57, 0, 0.356) 0px 20px 25px -5px,
+          rgba(73, 42, 0, 0.123) 0px 10px 10px -5px;
+      }
+
+      .box-styler-2 button {
+        font-size: 30px;
+      }
+
+      .btn {
+        display: inline-block;
+        outline: 0;
+        border: 0;
+        cursor: pointer;
+        will-change: box-shadow, transform;
+        background: radial-gradient(
+          100% 100% at 100% 0%,
+          #e9c6a0 0%,
+          #753c29 100%
+        );
+        box-shadow: 0px 2px 4px rgba(66, 47, 35, 0.308),
+          0px 7px 13px -3px rgba(66, 47, 35, 0.3),
+          inset 0px -3px 0px rgba(111, 88, 58, 0.5);
+        padding: 0 32px;
+        border-radius: 6px;
+        color: #fff;
+        height: 48px;
+        font-size: 17px;
+        text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+        transition: box-shadow 0.15s ease, transform 0.15s ease;
+      }
+      .btn:hover {
+        box-shadow: 0px 4px 8px rgb(45 35 66 / 40%),
+          0px 7px 13px -3px rgba(66, 49, 35, 0.274), inset 0px -3px 0px #926551;
+        transform: translateY(-2px);
+      }
+      .btn:active {
+        box-shadow: inset 0px 3px 7px #926551;
+        transform: translateY(2px);
+      }
+
+      .modal-container {
+        background-color: #332110b7;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+      }
+
+      .close-icon {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        cursor: pointer;
+        top: 12px;
+        right: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .close-icon:hover {
+        transform: rotate(180deg);
+      }
+
+      .close-icon:active {
+        transform: scale(-1.5);
+      }
+
+      .modal {
+        display: flex;
+        position: fixed;
+        margin: auto;
+      }
+
+      .invisible {
+        display: none;
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="box-styler">
+        <h1>Click the Button Below to See Modal</h1>
+        <button id="modal-open-btn" class="btn">Open Modal</button>
+      </div>
+
+      <div id="modal-container" class="modal-container invisible">
+        <div class="modal box-styler-2">
+          <svg
+            onclick="modalCloser()"
+            class="close-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 384 512"
+          >
+            <path
+              d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+            />
+          </svg>
+          <h1>
+            Learning Web Dev?
+            <a
+              style="text-decoration: underline wavy #753c29; color: #926551"
+              href="https://github.com/Abdulsaboor2004/"
+              target="_blank"
+              >Try it Yourself </a
+            >😉
+          </h1>
+          <button id="modal-close-btn" class="btn" onclick="modalCloser()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var modalOpenBtn = document.getElementById("modal-open-btn");
+    var modalCloseBtn = document.getElementById("modal-close-btn");
+    var modalContainer = document.getElementById("modal-container");
+
+    // const modalCloser = () => {
+    //     modalCloseBtn.classList.toggle('invisible')
+    // }
+
+    modalOpener = () => {
+      modalOpenBtn.addEventListener("click", () => {
+        modalContainer.classList.remove("invisible");
+      });
+    };
+
+    modalOpener();
+
+    modalCloser = () => {
+      modalContainer.classList.add("invisible");
+    };
+
+    modalCloser();
+  </script>
+</html>
